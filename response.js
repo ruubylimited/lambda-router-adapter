@@ -82,15 +82,23 @@ function convert(httpResponse) {
     headers: httpResponse.headers,
     statusCode: httpResponse.statusCode
   };
-  var contentTypeHeader = httpResponse.headers['content-type'];
-  if(contentTypeHeader && contentTypes.isText(contentTypeHeader)) {
+
+  var contentTypeHeader = httpResponse.headers['Content-Type'];
+
+  if (contentTypeHeader && contentTypes.isJson(contentTypeHeader)) {
+    lambdaResponse.body = JSON.parse(httpResponse.toBuffer().toString());
+  }
+  else if(contentTypeHeader && contentTypes.isText(contentTypeHeader)) {
     lambdaResponse.body = httpResponse.toBuffer().toString();
-  } else {
+  }
+  else {
     lambdaResponse.bodyBase64 = httpResponse.toBuffer().toString('base64');
   }
+
   if(httpResponse.statusMessage) {
     lambdaResponse.statusMessage = httpResponse.statusMessage;
   }
+
   return lambdaResponse;
 }
 
