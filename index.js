@@ -18,7 +18,7 @@ function newExpressHandler(app) {
   return function(event, context) {
     var lambdaHttpRequest = request.convert(event);
     var lambdaHttpResponse = response.newResponse(function(lambdaHttpResponse) {
-      var convertedResponse = response.convert(lambdaHttpResponse);
+    var convertedResponse = response.convert(lambdaHttpResponse);
 
       if (/^20.+$/.test( lambdaHttpResponse.statusCode )) {
         context.done(null, convertedResponse);

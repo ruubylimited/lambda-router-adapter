@@ -32,6 +32,8 @@ function LambdaHttpRequest(lambdaRequest) {
   this.headers = lambdaRequest.headers || {};
   this.body = lambdaRequest.body;
   this.socket = new LambdaSocket();
+
+  console.log(this.body);
 }
 
 LambdaHttpRequest.prototype.setTimeout = function(msecs, callback) { }
