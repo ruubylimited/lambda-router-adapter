@@ -16,6 +16,8 @@ LambdaSocket.prototype.destroy = function() {}
  * @constructor
  */
 function LambdaHttpRequest(lambdaRequest) {
+  console.log(lambdaRequest);
+
   streams.ReadableStream.call(this, lambdaRequest.body);
   this.httpVersionMajor = 1;
   this.httpVersionMinor = 1;
