@@ -30,10 +30,15 @@ function LambdaHttpRequest(lambdaRequest) {
   this.path = url.parse(lambdaRequest.url).pathname;
 
   this.headers = lambdaRequest.headers || {};
-  this.body = lambdaRequest.body;
-  this.socket = new LambdaSocket();
 
-  console.log(this.body);
+  if (this.headers["Content-Type"] === "application/json") {
+    this.body = JSON.parse(lambdaRequest.body);
+  }
+  else {
+    this.body = lambdaRequest.body;
+  }
+
+  this.socket = new LambdaSocket();
 }
 
 LambdaHttpRequest.prototype.setTimeout = function(msecs, callback) { }
