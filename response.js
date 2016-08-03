@@ -86,7 +86,16 @@ function convert(httpResponse) {
   var contentTypeHeader = httpResponse.headers['Content-Type'];
 
   if (contentTypeHeader && contentTypes.isJson(contentTypeHeader)) {
-    lambdaResponse.body = JSON.parse(httpResponse.toBuffer().toString());
+    try {
+      var content = httpResponse.toBuffer().toString();
+
+      if (content) lambdaResponse.body = JSON.parse(content);
+    }
+    catch (err) {}
+
+    if (!lambdaResponse.body) {
+      lambdaResponse.body = httpResponse.toBuffer().toString()
+    }
   }
   else if(contentTypeHeader && contentTypes.isText(contentTypeHeader)) {
     lambdaResponse.body = httpResponse.toBuffer().toString();

@@ -23,6 +23,7 @@ function LambdaHttpRequest(lambdaRequest) {
   this.complete = false;
   this.trailers = {};
   this.readable = true;
+  this.protocol = 'http';
 
   this.method = lambdaRequest.method;
   this.url = lambdaRequest.url;
